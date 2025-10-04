@@ -5,6 +5,13 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+def open_csv(file_path):
+    import csv
+    with open(file_path,"r",encoding="utf-8") as file:
+        reader=csv.reader(file,delimiter="\t")
+        reader=list(reader)
+    return reader
+
 
 def pregunta_07():
     """
@@ -25,3 +32,21 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+
+    data=open_csv("files/input/data.csv")
+
+    registros_columnas={}
+
+    for row in data:
+        columna=int(row[1])
+
+        if columna not in registros_columnas:
+            registros_columnas[columna]=[]
+        registros_columnas[columna].append(row[0].strip())
+
+    respuesta=[]
+    for key,value in registros_columnas.items():
+        respuesta.append((key,value))
+    return sorted(respuesta)
+
+pregunta_07()

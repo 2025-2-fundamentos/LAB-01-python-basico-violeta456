@@ -6,6 +6,16 @@ utilizar pandas, numpy o scipy.
 """
 
 
+def open_csv(file_path):
+    import csv
+    with open(file_path,"r",encoding="utf-8") as file:
+        reader=csv.reader(file,delimiter="\t")
+        reader=list(reader)
+    
+    return reader
+
+
+
 def pregunta_03():
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como
@@ -15,3 +25,24 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+    data=open_csv("files/input/data.csv")
+    registros_letra={}
+
+    for row in data:
+        letra=row[0].strip()
+        if letra not in registros_letra:
+            registros_letra[letra]=0
+        
+        registros_letra[letra]+=int(row[1])
+    
+    respuesta=[]
+    for key,value in registros_letra.items():
+        respuesta.append((key,value))
+
+    return sorted(respuesta)
+
+pregunta_03()
+
+
+
+

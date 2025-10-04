@@ -5,6 +5,13 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+def open_csv(file_path):
+    import csv
+    with open(file_path,"r",encoding="utf-8") as file:
+        reader=csv.reader(file,delimiter="\t")
+        reader=list(reader)
+    return reader
+
 
 def pregunta_10():
     """
@@ -20,3 +27,13 @@ def pregunta_10():
 
 
     """
+
+    data=open_csv("files/input/data.csv")
+    lista_tuplas=[]
+
+    for row in data:
+        lista_tuplas.append((row[0],len(row[3].split(",")),len(row[4].split(","))))
+
+    return lista_tuplas
+
+pregunta_10()

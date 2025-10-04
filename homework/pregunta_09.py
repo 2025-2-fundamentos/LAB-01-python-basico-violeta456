@@ -5,6 +5,13 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+def open_csv(file_path):
+    import csv
+    with open(file_path,"r",encoding="utf-8") as file:
+        reader=csv.reader(file,delimiter="\t")
+        reader=list(reader)
+    return reader
+
 
 def pregunta_09():
     """
@@ -24,3 +31,23 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+
+    data = open_csv("files/input/data.csv")
+
+    registros_clave = {}
+    for row in data:
+        elementos = row[4].split(",")
+        for clave_valor in elementos:
+            clave,_ = clave_valor.split(":")
+            if clave not in registros_clave:
+                registros_clave[clave] = 0
+            registros_clave[clave] += 1
+    
+
+
+    return registros_clave
+
+pregunta_09()
+
+
+
